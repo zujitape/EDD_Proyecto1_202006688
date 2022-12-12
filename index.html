@@ -57,11 +57,31 @@
                 <header>
                     <a href="#" class="logo"><img src="assets/images/icon.png" class="img">Muster cloud</a>
                     <ul>
-                        <li><a href="#">Usuarios</a></li>
-                        <li><a href="#">Artistas</a></li>
-                        <li><a href="#">Canciones</a></li>
-                        <li><a href="#">Música programada</a></li>
-                        <li><a href="#">Podcast</a></li>
+                        <li>
+                            <label class="custom-file-upload">
+                                <input type="file" id="fileUser"/>Usuarios
+                            </label>
+                        </li>
+                        <li>
+                            <label class="custom-file-upload">
+                                <input type="file" id = 'artist'/>Artistas
+                            </label>
+                        </li>
+                        <li>
+                            <label class="custom-file-upload">
+                                <input type="file" id = "songs"/>Canciones
+                            </label>
+                        </li>
+                        <li>
+                            <label class="custom-file-upload">
+                                <input type="file" id="programmed"/>Música programada
+                            </label>
+                        </li>
+                        <li>
+                            <label class="custom-file-upload">
+                                <input type="file" id="podcast" />Podcast
+                            </label>
+                        </li>
                     </ul>
                 </header>
                 <div class="content">
@@ -105,7 +125,7 @@
                             <h3>Usuario</h3>
                         </div>
                     </div>
-                    <button class="btn" id="btn_add">Agregar</button>
+                    <button class="btnFriends" id="btn_add">Agregar</button>
                     <h2 style="margin-top: 10px;">Amigos</h2>
                     <div class="blocked">    
                         <div class="user" style="display: inline-block;">
@@ -117,16 +137,17 @@
                             <h3>Usuario</h3>
                         </div>
                     </div>
-                    <button class="btn" id="btn_delete">Eliminar</button>
+                    <button class="btnFriends" id="btn_delete">Eliminar</button>
                 </div>
             </div>
         </section>
-        
+
         
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
     <script src='http://www.xavierdupre.fr/js/vizjs/viz-lite.js'></script>
-    <script type="module" src="assets/js/script2.js"></script>
+    <script type="module" src="assets/js/dataAnalisis.js"></script>
     <script type="module" src="assets/js/script.js"></script>
+    <script type="module" src="sc2.js"></script>
     
 </body>
 </html>

@@ -1,5 +1,10 @@
+import Pila from './Pila.js';
+import Cola from './Cola.js';
+
 class Nodo {
     constructor(valor) {
+      this.friends = new Pila()
+      this.blocked = new Cola()
       this.valor = valor
       this.siguiente = null
     }

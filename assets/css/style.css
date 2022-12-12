@@ -24,6 +24,7 @@ body{
     padding: 20px;
     margin: auto;
     margin-top: 100px;
+    display: none;
     
 }
 
@@ -31,7 +32,6 @@ body{
    width: 100%;
    margin-top: 55px;
    margin-left: 95px;
-   display: none;
 }
 
 .friends_user{
@@ -276,13 +276,14 @@ header ul li{
     margin: 0 10px;
 }
 
-header ul li a{
+header ul li a, .custom-file-upload{
     text-decoration: none;
     font-weight: 700;
     color: #13112bfa;
     padding: 8px 15px;
     height: fit-content;
     border-radius: 25px;
+    cursor: pointer;
 }
 
 header ul li a:hover{
@@ -311,7 +312,7 @@ header ul li a:hover{
     border-radius: 20px;
 }
 
-.btn{
+.btn, input[type='file']::-webkit-upload-file-button{
     padding: 10px 10px;
     width: 75%;
     border-radius: 35px;
@@ -415,7 +416,7 @@ svg{
     height: 110px;
 }
 
-.content button{
+.content .btnFriends{
     margin-top: 2px;
     padding: 5px 5px;
     width: 25%;
@@ -432,7 +433,7 @@ svg{
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.content button:hover{
+.content .btnFriends:hover{
     background-color: rgba(73, 137, 82, 0.5);
     color: #000;
 }
@@ -458,3 +459,8 @@ svg{
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+input[type="file"] {
+    display: none;
+}
+

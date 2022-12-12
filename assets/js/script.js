@@ -16,7 +16,7 @@ lstUsuarios.agregar(user2);
 document.getElementById("btn_register").addEventListener("click", registerForm);
 document.getElementById("btn_login").addEventListener("click", loginForm);
 document.getElementById("btn_graphviz").addEventListener("click", graphviz);
-document.getElementById("login").addEventListener("click", showFriends);
+document.getElementById("login").addEventListener("click", login);
 document.getElementById("register").addEventListener("click", register);
 document.getElementById("btn_userGraph").addEventListener("click", showIndex);
 
@@ -52,11 +52,11 @@ function registerForm(){
 }
 
 function clearRegisterForm(){
-    var username = document.querySelector("#txtUser").value = "";
-    var name = document.querySelector('#txtNombre').value = "";
-    var dpi = document.querySelector('#txtDpi').value = "";
-    var cell = document.querySelector('#txtTel').value = "";
-    var pass = document.querySelector('#txtPass').value = "";
+    document.querySelector("#txtUser").value = "";
+    document.querySelector('#txtNombre').value = "";
+    document.querySelector('#txtDpi').value = "";
+    document.querySelector('#txtTel').value = "";
+    document.querySelector('#txtPass').value = "";
 }
 
 
@@ -76,9 +76,15 @@ function register(){
 
 function login(){
     var username = document.querySelector('#txtUser_').value
-    var pass = document.querySelector('#txtPass_').value
+    var pass = sha256(document.querySelector('#txtPass_').value)
     vUser = lstUsuarios.existe(username, pass)
+    showAdmin()
+
+    /*
+    vUser.friends.push(user)
+    console.log(lstUsuarios)
     console.log(vUser.valor.admin)  
+    */
 }
 
 function graphviz(){
@@ -105,3 +111,4 @@ function showIndex(){
     indexPage.style.display = "block";
 }
 
+export {lstUsuarios};
