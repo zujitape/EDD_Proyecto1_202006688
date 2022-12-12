@@ -1,0 +1,14 @@
+
+.checkbox { 
+    position: absolute; 
+    bottom: 70px; 
+    right: -10px; 
+    height: 18px;
+    width: 18px;
+}
+
+<div class="user" style="display: inline-block;">
+    <img src="assets/images/bg.png" id="myPicture">
+    <input type="checkbox" class="checkbox" id="check1" />
+    <h3>Usuario</h3>
+</div>
