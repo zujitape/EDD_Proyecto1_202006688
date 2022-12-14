@@ -12,3 +12,32 @@
     <input type="checkbox" class="checkbox" id="check1" />
     <h3>Usuario</h3>
 </div>
+showDiv(user){
+      var tempPila = user.friends.top
+      var temp = this.cabeza
+      console.log(user.friends.size)
+      if(user.friends.size > 0){
+        while(temp && tempPila){
+          console.log(temp.valor.username +" = " + tempPila.valor.username + "?")
+          if(temp.valor.username == tempPila.valor.username){
+            console.log("agrego a" + temp.valor.username + " a amigos")
+            document.getElementById("blockUsers").innerHTML+= '<div class="block" style="display: inline-block;">\n<img src="assets/images/bg.png" id="myPicture"><input type="checkbox" class="checkbox" id="check+'+ i +'+" />\n<h3>' + temp.valor.username +'</h3>'
+            i++
+            tempPila = tempPila.next
+          }else if (temp.valor.username == user.valor.username){
+            console.log("el usuario es " + user.valor.username)
+          }else{
+            console.log("agrego a " + temp.valor.username + " a otros usuarios")  
+            document.getElementById("addUsers").innerHTML+= '<div class="user" style="display: inline-block;">\n<img src="assets/images/bg.png" id="myPicture"><input type="checkbox" class="checkbox" id="check+'+ i +'+" />\n<h3>' + temp.valor.username +'</h3>'
+            i++
+          }
+          
+          temp = temp.siguiente
+        
+        }
+      }else{
+        console.log(user.valor.username + "no tiene amigos :(")
+        document.getElementById("addUsers").innerHTML+= '<div class="user" style="display: inline-block;">\n<img src="assets/images/bg.png" id="myPicture"><input type="checkbox" class="checkbox" id="check+'+ i +'+" />\n<h3>' + temp.valor.username +'</h3>'
+        document.getElementById("blockUsers").innerHTML = '<h2>Parece que no hay nada por aquí...</h2>'
+      }
+    }

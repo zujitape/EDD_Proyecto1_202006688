@@ -13,12 +13,12 @@ export default class Cola{
     }
 
     //primer ingresado 
-    peek(){
+    firstQue(){
         return this.bottom
     }
 
     //último ingresado 
-    bottom(){
+    lastQue(){
         return this.top
     }
 
@@ -29,10 +29,9 @@ export default class Cola{
             this.top = newNodo;
             this.size++;
         }
-
-        this.top.next = newNodo;
-        this.top = newNodo;
-        this.length++;
+        newNodo.next = this.top 
+        this.top = newNodo
+        this.size++
     }
 
     dequeue(){
@@ -40,15 +39,15 @@ export default class Cola{
             return "No hay datos para borrar";
         }
 
-        if (this.length === 1) {
+        if (this.size === 1) {
             this.top = null;
             this.bottom = null;
-            this.length--;
+            this.size--;
             return this;
         }
 
         this.bottom = this.bottom.next;
-        this.length--;
+        this.size--;
         return this;
     }
 }

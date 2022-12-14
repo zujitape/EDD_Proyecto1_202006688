@@ -1,28 +1,28 @@
 import Usuario from './Usuario.js';
-import Artista from './Artista.js';
-import Song from './Song.js';
-import Programmed from './ProgrammedMusic.js';
-import Podcast from './Podcast.js';
 import ListaSimple from './ListaSimple.js';
+import { showFriends } from './activeUser.js';
 
 
-var user = new Usuario(2340, "karla", "user", "1", 234, true);
-var user2 = new Usuario(234, "yohann", "nicolás", "pass", 923483, false);
+var user = new Usuario(2340, "karla", "user", sha256("1"), 234, true);
+var user2 = new Usuario(234, "yohann", "toby", sha256("2"), 923483, false);
+var user3 = new Usuario(234, "loka", "china", sha256("2"), 923483, false);
+var user4 = new Usuario(234, "loka", "zuji", sha256("2"), 923483, true);
+
 var lstUsuarios = new ListaSimple();
 lstUsuarios.agregar(user);
 lstUsuarios.agregar(user2);
+lstUsuarios.agregar(user3);
+lstUsuarios.agregar(user4);
 
 
 document.getElementById("btn_register").addEventListener("click", registerForm);
 document.getElementById("btn_login").addEventListener("click", loginForm);
-document.getElementById("btn_graphviz").addEventListener("click", graphviz);
 document.getElementById("login").addEventListener("click", login);
 document.getElementById("register").addEventListener("click", register);
-document.getElementById("btn_userGraph").addEventListener("click", showIndex);
+document.getElementById("backHome").addEventListener("click", showIndex);
+document.getElementById("backHome2").addEventListener("click", showIndex);
 
-var sample = 'digraph G {subgraph cluster_0 {  style=filled;  color=lightgrey;  node [style=filled,color=white];  a0 -> a1 -> a2 -> a3;  label = "process #1";}subgraph cluster_1 {  node [style=filled];  b0 -> b1 -> b2 -> b3;label = "process #2";  color=blue}start -> a0;start -> b0;a1 -> b3;b2 -> a3;a3 -> a0;a3 -> end;b3 -> end;start [shape=Mdiamond];end [shape=Msquare];}';
-var data;
-var vUser = null
+var activeUser = null
 
 var container = document.querySelector(".front_div")
 var login_form = document.querySelector(".login_form")
@@ -59,6 +59,10 @@ function clearRegisterForm(){
     document.querySelector('#txtPass').value = "";
 }
 
+function clearLoginForm(){
+    document.querySelector("#txtUser_").value = "";
+    document.querySelector('#txtPass_').value = "";
+}
 
 function register(){
     var username = document.querySelector("#txtUser").value;
@@ -71,26 +75,38 @@ function register(){
     alert("Usuario agregado correctamente!")
     clearRegisterForm()
     loginForm()
-    console.log(lstUsuarios)
 }
 
 function login(){
     var username = document.querySelector('#txtUser_').value
     var pass = sha256(document.querySelector('#txtPass_').value)
-    vUser = lstUsuarios.existe(username, pass)
-    showAdmin()
-
+    activeUser = lstUsuarios.existe(username, pass)
+    console.log("Contraseña " + document.querySelector('#txtPass_').value)
+    console.log("Encriptada: " + pass)
+    if(activeUser){
+        if (activeUser.valor.admin){
+            alert("Bienvenido "+ activeUser.valor.username +"!")
+            clearLoginForm()
+            showAdmin()
+        }else if(!activeUser.valor.admin){
+            if(activeUser.valor.username == "toby"){
+                activeUser.friends.push(user)
+                activeUser.friends.push(user3)
+            }
+            showFriends(adminPage, indexPage, friendsPage)
+            alert("Bienvenido "+ activeUser.valor.username +"!")
+            clearLoginForm()
+        }
+    }else{
+        alert("Asegúrate de ingresar las credenciales correctamente")
+    }
+    
     /*
     vUser.friends.push(user)
     console.log(lstUsuarios)
     console.log(vUser.valor.admin)  
     */
-}
-
-function graphviz(){
-    var image = Viz(sample, "svg");
-    var main = document.getElementById('graphRender');
-    main.innerHTML = image;	
+    
 }
 
 function showAdmin(){
@@ -99,16 +115,13 @@ function showAdmin(){
     indexPage.style.display = "none";
 }
 
-function showFriends(){
-    adminPage.style.display = "none";
-    friendsPage.style.display = "block";
-    indexPage.style.display = "none";
-}
 
 function showIndex(){
     adminPage.style.display = "none";
     friendsPage.style.display = "none";
     indexPage.style.display = "block";
+    document.getElementById('blockUsers').innerHTML = ''
+    document.getElementById('addUsers').innerHTML = ''
 }
 
-export {lstUsuarios};
+export {lstUsuarios, activeUser};

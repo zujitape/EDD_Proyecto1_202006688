@@ -33,6 +33,7 @@ export default class Pila{
             this.top = newNodo
             this.size++
         }
+
     }
 
     pop(){
@@ -52,5 +53,16 @@ export default class Pila{
         this.size--;
         return temp
     }
+
+    values(){
+        var temp = this.top
+        while(temp){
+            console.log("huh?")
+            console.log(temp.valor.username)
+            temp = temp.next
+        }
+    }
+
+    
 
 }
