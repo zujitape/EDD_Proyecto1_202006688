@@ -1,7 +1,6 @@
 import Usuario from './Usuario.js';
 import ListaSimple from './ListaSimple.js';
-import { showFriends } from './activeUser.js';
-
+import { showFriends, showBlocked } from './activeUser.js';
 
 var user = new Usuario(2340, "karla", "user", sha256("1"), 234, true);
 var user2 = new Usuario(234, "yohann", "toby", sha256("2"), 923483, false);
@@ -21,6 +20,10 @@ document.getElementById("login").addEventListener("click", login);
 document.getElementById("register").addEventListener("click", register);
 document.getElementById("backHome").addEventListener("click", showIndex);
 document.getElementById("backHome2").addEventListener("click", showIndex);
+document.getElementById("backHome3").addEventListener("click", showIndex);
+
+document.getElementById("bloqueados").addEventListener("click", showBlocked);
+document.getElementById("amigos").addEventListener("click", showFriends);
 
 var activeUser = null
 
@@ -34,6 +37,7 @@ var register_back = document.querySelector(".register_back_div")
 var adminPage = document.querySelector(".admin")
 var indexPage = document.querySelector(".index")
 var friendsPage = document.querySelector(".friends_user")
+var blockedPage = document.querySelector(".blocked_user")
 
 function loginForm(){
     register_form.style.display = "none";
@@ -93,9 +97,10 @@ function login(){
                 activeUser.friends.push(user)
                 activeUser.friends.push(user3)
             }
-            showFriends(adminPage, indexPage, friendsPage)
+            showFriends()
             alert("Bienvenido "+ activeUser.valor.username +"!")
             clearLoginForm()
+            console.log(activeUser.friends)
         }
     }else{
         alert("Asegúrate de ingresar las credenciales correctamente")
@@ -113,15 +118,22 @@ function showAdmin(){
     adminPage.style.display = "block";
     friendsPage.style.display = "none";
     indexPage.style.display = "none";
+    blockedPage.style.display = "none";
 }
 
 
 function showIndex(){
     adminPage.style.display = "none";
     friendsPage.style.display = "none";
+    blockedPage.style.display = "none";
     indexPage.style.display = "block";
+
     document.getElementById('blockUsers').innerHTML = ''
     document.getElementById('addUsers').innerHTML = ''
+    document.getElementById('graphRender').innerHTML = ''
+    document.getElementById('graphContainer').innerHTML = ''
+    document.getElementById('graphContainer2').innerHTML = ''
 }
+
 
 export {lstUsuarios, activeUser};

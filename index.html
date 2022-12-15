@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/images/icon.png">
-    <title>Login & Register</title>
+    <title>Muster Cloud</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
             <div class = "color"></div>
             <div class = "color"></div>
             <div class = "color"></div>
-            <div class="general_container">
+            <div class="general_container" id = "general">
                 <div class="back_div">
                     <div class="login_back_div">
                         <h3> ¿Ya tienes una cuenta? </h3>
@@ -53,7 +53,7 @@
         </section>
 
         <section id = "admin" class="admin">
-            <div class="container">
+            <div class="container" id="adminpage">
                 <header>
                     <a href="#" class="logo" id="backHome" ><img src="assets/images/icon.png" class="img">Muster cloud</a>
                     <ul>
@@ -105,29 +105,58 @@
         </section>
 
         <section class = "friends_user">
-            <div class="container">
+            <div class="container" id="friends">
                 <header>
                     <a href="#" class="logo" id="backHome2"><img src="assets/images/icon.png" class="img">Muster cloud</a>
                     <ul>
-                        <li><a href="#">Música</a></li>
-                        <li><a href="#">Playlist</a></li>
-                        <li><a href="#">Artistas</a></li>
-                        <li><a href="#">Amigos</a></li>
-                        <li><a href="#">Bloqueados</a></li>
-                        <li><a href="#">Podcast</a></li>
+                        <li><a id="music" href="#musica">Música</a></li>
+                        <li><a id="playlist" href="#playlist">Playlist</a></li>
+                        <li><a id="artista" href="#artistas">Artistas</a></li>
+                        <li><a id="bruh?" href="#friends_user">Amigos</a></li>
+                        <li><a id="bloqueados" href="#blocked_user">Bloqueados</a></li>
+                        <li><a id="podcast" href="#podcast">Podcast</a></li>
                     </ul>
                 </header>
                 <div class="content">
                     <h2>Usuarios</h2>
                     <div class="users" id="addUsers">
                         
-                    </div>
+                    </div><br>
                     <button class="btnFriends" id="btn_add">Agregar</button>
+                    <button class="btnFriends" id="btn_block">Bloquear</button>
                     <h2 style="margin-top: 10px;">Amigos</h2>
                     <div class="blockUsers" id="blockUsers">    
                         
-                    </div>
+                    </div><br>
                     <button class="btnFriends" id="btn_delete">Eliminar</button>
+                </div>
+                <div id="graphContainer">
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class = "blocked_user">
+            <div class="container" id="blocked">
+                <header>
+                    <a href="#" class="logo" id="backHome3"><img src="assets/images/icon.png" class="img">Muster cloud</a>
+                    <ul>
+                        <li><a id="music" href="#musica">Música</a></li>
+                        <li><a id="playlist" href="#playlist">Playlist</a></li>
+                        <li><a id="artista" href="#artistas">Artistas</a></li>
+                        <li><a id="amigos" href="#friends_user">Amigos</a></li>
+                        <li><a id="bloqueados" href="#blocked_user">Bloqueados</a></li>
+                        <li><a id="podcast" href="#podcast">Podcast</a></li>
+                    </ul>
+                </header>
+                <div class="bloqueados">
+                    <h2>Bloqueados</h2>
+                    <div class="bUsers" id="blockedUsers_">
+                    </div><br>
+                    <button class="btnFriends" id="btn_unblock">Desbloquear</button>
+                </div>
+                <div id="graphContainer2">
+                    
                 </div>
             </div>
         </section>

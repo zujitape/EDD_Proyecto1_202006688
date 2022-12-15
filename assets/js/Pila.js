@@ -33,7 +33,6 @@ export default class Pila{
             this.top = newNodo
             this.size++
         }
-
     }
 
     pop(){
@@ -54,15 +53,62 @@ export default class Pila{
         return temp
     }
 
-    values(){
+    generarDot(){
+        var dot = 'digraph Matriz{\n node[margin="0.3,0.3", fontname="IMPACT", shape = box fillcolor="#FFEDBB" color=white style=filled, border = white]';
+        dot += 'ranksep="0.02"  fontname="IMPACT"\n subgraph cluster_p{\nedge[style="invisible" dir="none"]';
+        dot += '\nlabel = "Amigos" fontsize="10pt" bgcolor = white \n';
+
         var temp = this.top
+        var conexiones ="";
+        var nodos ="";
+        var rank = "";
+        var i= 0; 
+
         while(temp){
-            console.log("huh?")
-            console.log(temp.valor.username)
+            nodos+= "N" + i + "[label = \"" + temp.valor.username + "\"];\n"
+            rank+= "N" + i
+            if(temp.next != null){
+              var auxi = i+1
+              conexiones += "N" + i +" -> N" + auxi + ";\n"
+              rank+= ", "
+            }
+    
             temp = temp.next
+            i++
+          }
+
+          dot+= nodos+"\n \n"+conexiones+"\n\n"
+          dot += "\n}\n}"
+          return dot
+    }
+
+    existe(username){
+        var temp = this.top
+        var found
+
+        while(temp){
+            if(temp.valor.username == username){
+                found = temp
+                break
+              }else{
+                temp = temp.next 
+              }
+        }
+
+        return temp
+    }
+
+    showFriends(){
+        var temp = this.top
+
+        while(temp){
+            if (this.size >0){
+            document.getElementById("blockUsers").innerHTML+= '<div class="block" style="display: inline-block;">\n<img src="assets/images/bg.png" id="myPicture"><input type="checkbox" class="checkboxFriend" id="check" />\n<h3 class = "friend" id="bloqueado">' + temp.valor.username +'</h3>'
+            temp = temp.next
+        }else{
+            document.getElementById("blockUsers").innerHTML = '<h2>Parece que no hay nada por aquí...</h2>'
         }
     }
 
-    
-
+      }
 }

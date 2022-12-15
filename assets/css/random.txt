@@ -41,3 +41,44 @@ showDiv(user){
         document.getElementById("blockUsers").innerHTML = '<h2>Parece que no hay nada por aquí...</h2>'
       }
     }
+
+
+
+
+showDiv(user){
+      var tempPila = user.friends.top
+      var temp = this.cabeza
+      var i = 0
+      console.log(user.friends)
+      if(user.friends.size > 0){
+        while(temp && tempPila){
+          if(temp.valor.username == tempPila.valor.username){
+            console.log("agrego a " + temp.valor.username + " a amigos")
+            document.getElementById("blockUsers").innerHTML+= '<div class="block" style="display: inline-block;">\n<img src="assets/images/bg.png" id="myPicture"><input type="checkbox" class="checkboxFriend" id="check'+ i +'" />\n<h3 class = "friend">' + temp.valor.username +'</h3>'
+            i++
+            tempPila = tempPila.next
+        }else if (temp.valor.username == user.valor.username || temp.valor.admin == true){
+            console.log("el usuario es " + user.valor.username)
+          }else if (temp.valor.username != tempPila.valor.username){
+            console.log("agrego a " + temp.valor.username + " a otros usuarios")  
+            document.getElementById("addUsers").innerHTML+= '<div class="user" style="display: inline-block;">\n<img src="assets/images/bg.png" id="myPicture"><input type="checkbox" class="checkboxUser" id="check'+ i +'" />\n<h3 class = "username">' + temp.valor.username +'</h3>'
+            i++
+          }
+          
+          temp = temp.siguiente
+        }
+      }else{
+        console.log(user.valor.username + "no tiene amigos :(")
+        while(temp){
+        
+        if(temp.valor.username != user.valor.username && temp.valor.admin == false){
+          document.getElementById("addUsers").innerHTML+= '<div class="user" style="display: inline-block;">\n<img src="assets/images/bg.png" id="myPicture"><input type="checkbox" class="checkboxUser" id="check'+ i +'" />\n<h3 class = "username">' + temp.valor.username +'</h3>'
+          i++
+        }
+        temp = temp.siguiente
+        }
+        document.getElementById("blockUsers").innerHTML = '<h2>Parece que no hay nada por aquí...</h2>'
+      }
+        
+      }
+      
