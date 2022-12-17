@@ -111,6 +111,20 @@ function graphSongs(){
     var main = document.getElementById('graphRender');
     main.innerHTML = image;	
 }
+function saveDiv() {
+    document.getElementsByTagName("svg")[0].style = 'width : 100%; height : 100%;';
+    html2canvas(document.getElementById("graphRender")).then(function(canvas) {
+
+       const image = canvas.toDataURL("image/png", 1.0);
+       const link = document.createElement("a");
+
+       link.download = "my-image.png";
+       link.href = image;
+       link.click();
+ });
+ document.getElementsByTagName("svg")[0].style = 'object-fit: fill; ';
+}
+
 
 //dataCharging
 document.getElementById('usersFile').addEventListener('change', onChange)
@@ -123,6 +137,8 @@ document.getElementById('podcastFile').addEventListener('change', onChange)
 document.getElementById('btn_userGraph').addEventListener("click", graphviz)
 document.getElementById('btn_artistGraph').addEventListener("click", graphArtist)
 document.getElementById('btn_songGraph').addEventListener("click", graphSongs)
+
+document.getElementById('btn_download').addEventListener("click", saveDiv)
 
 
 /*import { lstUsuarios } from "./assets/js/script.js";
