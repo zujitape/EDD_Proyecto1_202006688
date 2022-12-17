@@ -8,10 +8,7 @@ var user3 = new Usuario(234, "loka", "china", sha256("2"), 923483, false);
 var user4 = new Usuario(234, "loka", "zuji", sha256("2"), 923483, true);
 
 var lstUsuarios = new ListaSimple();
-lstUsuarios.agregar(user);
-lstUsuarios.agregar(user2);
-lstUsuarios.agregar(user3);
-lstUsuarios.agregar(user4);
+
 
 
 document.getElementById("btn_register").addEventListener("click", registerForm);

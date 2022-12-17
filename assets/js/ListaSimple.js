@@ -113,16 +113,5 @@ export default class Lista{
         
       }
     }
-
-    showBlock(user){
-      var tempPila = user.friends.top
-      var temp = this.cabeza
-      var i = 0
-      if(user.blocked.size >0){
-        console.log("si hay bloqueados")
-      }else{
-        console.log("no hay bloqueados")
-      }
-    }
     }
 

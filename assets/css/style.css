@@ -25,14 +25,13 @@ body{
     margin: auto;
     margin-top: 100px;
     display: none;
-    
 }
 
 .admin{
    width: 100%;
    margin-top: 55px;
    margin-left: 95px;
-   display: none;
+   
 }
 
 .friends_user{
@@ -45,7 +44,8 @@ body{
 .blocked_user{
     width: 100%;
     margin-top: 55px;
-    margin-left: 80px;  
+    margin-left: 80px;
+    display: none;  
 }
 
 
@@ -546,6 +546,9 @@ input[type="file"] {
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    overflow:auto;
+    display: grid;
+    place-items: center;
 }
 
 #friends{

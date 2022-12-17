@@ -31,13 +31,20 @@ export default class Cola{
             newNodo.next = this.bottom;
             this.size++
         }
+
         this.bottom = newNodo
+        
     }
 
     dequeue(){
         var temp = this.bottom
         var delete_ = this.top
         if(temp != null){
+            if(temp.next){
+                while(temp.next != this.top){
+                    temp = temp.next
+                }
+            }
             if (temp == this.top){
                 this.top = null
                 this.bottom = null
@@ -46,13 +53,16 @@ export default class Cola{
                 this.top = temp 
                 
             }
+            console.log("dequeue")
+            console.log(delete_)
             return delete_
+            
         }  
     }
 
     generarDot(){
         var dot = 'digraph Matriz{\n node[margin="0.3,0.3", fontname="IMPACT", shape = box fillcolor="#FFEDBB" color=white style=filled, border = white]';
-        dot += ' fontname="IMPACT"\n subgraph cluster_p{edge[style="invisible" dir="none"]';
+        dot += ' fontname="IMPACT"\n subgraph cluster_p{edge[ dir="forward"]';
         dot += 'label = "Bloqueados" fontsize="10pt" bgcolor = white \n';
   
         var temp = this.bottom

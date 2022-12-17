@@ -55,7 +55,7 @@ export default class Pila{
 
     generarDot(){
         var dot = 'digraph Matriz{\n node[margin="0.3,0.3", fontname="IMPACT", shape = box fillcolor="#FFEDBB" color=white style=filled, border = white]';
-        dot += 'ranksep="0.02"  fontname="IMPACT"\n subgraph cluster_p{\nedge[style="invisible" dir="none"]';
+        dot += 'ranksep="0.02"  fontname="IMPACT"\n subgraph cluster_p{\nedge[dir="back"]';
         dot += '\nlabel = "Amigos" fontsize="10pt" bgcolor = white \n';
 
         var temp = this.top

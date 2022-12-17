@@ -1,4 +1,5 @@
-import { lstUsuarios } from "./script.js";
+import { lstUsuarios} from "./script.js";
+import ListaListas from './ListaListas.js';
 import Usuario from './Usuario.js';
 import Artista from "./Artista.js";
 import Song from "./Song.js";
@@ -6,24 +7,24 @@ import ProgrammedMusic from "./ProgrammedMusic.js";
 import Podcast from "./Podcast.js"
 
 var sample = 'digraph G {subgraph cluster_0 {  style=filled;  color=lightgrey;  node [style=filled,color=white];  a0 -> a1 -> a2 -> a3;  label = "process #1";}subgraph cluster_1 {  node [style=filled];  b0 -> b1 -> b2 -> b3;label = "process #2";  color=blue}start -> a0;start -> b0;a1 -> b3;b2 -> a3;a3 -> a0;a3 -> end;b3 -> end;start [shape=Mdiamond];end [shape=Msquare];}';
-
+var lstMusica = new ListaListas();
 
 function onChange(event) {
     try{
         var reader = new FileReader();
         switch(this.id){
             case 'usersFile':
+                console.log("?")
                 reader.onload = getUsers;
                 alert('Archivo cargado correctamente')
                 console.log(lstUsuarios)
                 break
             case 'artistFile':
                 reader.onload = getArtists;
-                console.log("tuvieja2")
+                console.log(lstMusica)
                 break
             case 'musicFile':
                 reader.onload = getSongs;
-                console.log("tuvieja3")
                 break
             case 'programmedFile':
                 reader.onload = getProgrammed;
@@ -51,20 +52,21 @@ function getUsers(event){
 }
 
 function getArtists(event){
-    var obj = JSON.parse(event.target.result);
-    var size = Object.keys(obj).length
+    var data = JSON.parse(event.target.result);
+    var size = Object.keys(data).length
     for(var i = 0; i <size;i++){
         var newArtist = new Artista(data[i].name, data[i].age, data[i].country)
+        lstMusica.agregarH(newArtist)
 
     }
 }
 
 function getSongs(event){
-    var obj = JSON.parse(event.target.result);
-    var size = Object.keys(obj).length
+    var data = JSON.parse(event.target.result);
+    var size = Object.keys(data).length
     for(var i = 0; i <size;i++){
-        var newSong = new Song(data[i].name, data[i].duration, data[i].gender)
-
+        var newSong = new Song(data[i].artist, data[i].name, data[i].duration, data[i].gender)
+        lstMusica.agregarV(data[i].artist, newSong)
     }
 }
 
@@ -94,6 +96,21 @@ function graphviz(){
     main.innerHTML = image;	
 }
 
+function graphArtist(){
+    var data = lstMusica.generarDotArtistas()
+    console.log(data)
+    var image = Viz(data, "svg");
+    var main = document.getElementById('graphRender');
+    main.innerHTML = image;	
+}
+
+function graphSongs(){
+    var data = lstMusica.generarDotCanciones()
+    console.log(data)
+    var image = Viz(data, "svg");
+    var main = document.getElementById('graphRender');
+    main.innerHTML = image;	
+}
 
 //dataCharging
 document.getElementById('usersFile').addEventListener('change', onChange)
@@ -104,6 +121,8 @@ document.getElementById('podcastFile').addEventListener('change', onChange)
 
 //graphRender
 document.getElementById('btn_userGraph').addEventListener("click", graphviz)
+document.getElementById('btn_artistGraph').addEventListener("click", graphArtist)
+document.getElementById('btn_songGraph').addEventListener("click", graphSongs)
 
 
 /*import { lstUsuarios } from "./assets/js/script.js";

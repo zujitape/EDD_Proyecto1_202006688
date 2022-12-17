@@ -3,6 +3,6 @@ export default class Song{
         this.artist = artist
         this.name = name
         this.duration = duration
-        this.gender = []
+        this.gender = gender
     }
 } 
