@@ -23,7 +23,7 @@ export default class ListaListas{
     }
     
     //insertar artistas
-    agregarH(valor){
+    addHeader(valor){
         var temp = new NodoC(valor);
         if(this.cabeza == null){
             this.cabeza = temp 
@@ -36,11 +36,8 @@ export default class ListaListas{
         }
     }
 
-    
-
-
     //insertar canciones
-    agregarV(artist, valor){
+    addValue(artist, valor){
         var tempcabeza = this.cabeza
         while(tempcabeza != null){
             if(tempcabeza.valor.name == artist){
@@ -80,7 +77,6 @@ export default class ListaListas{
 
 
     generarDotArtistas(){
-        console.log(this.cabeza.abajo)
         var dot = 'digraph Matriz{\n node[margin="0.3,0.3", fontname="IMPACT", shape = box fillcolor="#FFEDBB" color=white style=filled, border = white]';
         dot += ' fontname="IMPACT"\n subgraph cluster_p{';
         dot += 'label = "Artistas" fontsize="20pt" bgcolor = white \n';
@@ -90,17 +86,8 @@ export default class ListaListas{
         var nodos ="";
         var i= 0;
 
-        var rank = "";
-        var nodosv = "";
-        var conexionesv = "";
-        var c = 0;
-        var tempC = null
-
-
         //cabeceras
         while(temp){
-
-            tempC = temp.abajo
 
             //creo el artista
             nodos += "N" + i + "[label = \"" + temp.valor.name + "\nEdad: " + temp.valor.age + "\nPaís: " + temp.valor.country + "\"];\n"
@@ -111,26 +98,11 @@ export default class ListaListas{
                 conexiones += "N" + auxi + " -> N" + i + ";\n"
                 //rank += ", "
             }
-
-            while(tempC){
-                nodosv += "N" + c + "[label = \"" + tempC.valor.name + "\nDuración: " + tempC.valor.duration + "\"];\n"
-                rank+= "N" + c
-                if(tempC.siguiente != null){
-                    var auxic = c+1
-                    conexionesv += "N" + c + " -> N" + auxic + ";\n"
-                    conexionesv += "N" + auxic + " -> N" + c + ";\n"
-                    rank+= ", "
-                }
-
-                tempC = tempC.siguiente
-            }
             temp = temp.siguiente
             i++
         }
 
         dot+= nodos+"\n\n"+conexiones+"\n\n }} "
-        dot+= nodosv+"\n\n"+conexionesv+"\n\n"
-            dot+= "{rank = same;" + rank + "}\n }}"
 
         return dot
     }
@@ -277,21 +249,6 @@ export default class ListaListas{
         return dot
 
     }
-
-
-    mostrarCabeceras(){
-        var temporal = this.head
-        console.log("*********** Cabeceras *********")
-        while (temporal != null){
-            console.log(temporal.value)
-            temporal = temporal.next
-        }
-    }
-
-    //artistas
-    
-
-    //canciones-artista
     
     showValues(value){
         var temp = this.cabeza
@@ -308,7 +265,19 @@ export default class ListaListas{
             temp = temp.siguiente
         }
         if(temp == null){
-            console.log("No se pudo encontrar el cabeza solicitado "+value)
+            console.log("No se pudo encontrar el header "+value)
+        }
+    }
+
+    showValueDivs(){
+        var temp = this.cabeza
+        while (temp){
+            var tempC = temp.abajo
+            while(tempC){
+                document.getElementById("songs").innerHTML += '<div class="song" style="display: inline-block;">\n<img src="assets/images/bg.png" id="mySong">\n<div class="song_info" style="display: flex;">\n<button class="addSong">+</button>\n <h3>' + tempC.valor.name  + '</h3> </div>\n<h5 class = "autor">' + tempC.valor.artist + '</h5></div>'
+                tempC = tempC.siguiente 
+            }
+            temp = temp.siguiente
         }
     }
     

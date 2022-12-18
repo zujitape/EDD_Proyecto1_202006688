@@ -6,7 +6,13 @@
     height: 18px;
     width: 18px;
 }
+#7c9ca2fa
 
+
+document.getElementById("songs").innerHTML += '<div class="song" style="display: inline-block;">\n<img src="assets/images/bg.png" id="mySong">\n<div class="song_info" style="display: flex;">\n<button class="addSong">+</button>\n <h3>' + tempC.valor.name + '</h3> </div>\n<h5 class = "autor">' + tempC.valor.artist + '</h5></div>'
+                
+
+                
 <div class="user" style="display: inline-block;">
     <img src="assets/images/bg.png" id="myPicture">
     <input type="checkbox" class="checkbox" id="check1" />

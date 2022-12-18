@@ -23,16 +23,6 @@ export default class Lista{
       this.cabeza = temp
       this.size++
     }
-    
-    mostrar() {
-      var temp = this.cabeza
-      document.getElementById("log").innerHTML+="[ "    
-      while(temp) {
-        document.getElementById("log").innerHTML+=temp.valor+" ";
-        temp = temp.siguiente
-      }
-      document.getElementById("log").innerHTML+="]"
-    } 
 
     existe(username, password){
       var temp = this.cabeza

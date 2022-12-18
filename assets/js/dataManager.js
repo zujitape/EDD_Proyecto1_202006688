@@ -1,4 +1,4 @@
-import { lstUsuarios} from "./script.js";
+import {lstUsuarios} from "./script.js";
 import ListaListas from './ListaListas.js';
 import Usuario from './Usuario.js';
 import Artista from "./Artista.js";
@@ -56,7 +56,7 @@ function getArtists(event){
     var size = Object.keys(data).length
     for(var i = 0; i <size;i++){
         var newArtist = new Artista(data[i].name, data[i].age, data[i].country)
-        lstMusica.agregarH(newArtist)
+        lstMusica.addHeader(newArtist)
 
     }
 }
@@ -66,7 +66,7 @@ function getSongs(event){
     var size = Object.keys(data).length
     for(var i = 0; i <size;i++){
         var newSong = new Song(data[i].artist, data[i].name, data[i].duration, data[i].gender)
-        lstMusica.agregarV(data[i].artist, newSong)
+        lstMusica.addValue(data[i].artist, newSong)
     }
 }
 
@@ -111,6 +111,7 @@ function graphSongs(){
     var main = document.getElementById('graphRender');
     main.innerHTML = image;	
 }
+
 function saveDiv() {
     document.getElementsByTagName("svg")[0].style = 'width : 100%; height : 100%;';
     html2canvas(document.getElementById("graphRender")).then(function(canvas) {
@@ -141,6 +142,7 @@ document.getElementById('btn_songGraph').addEventListener("click", graphSongs)
 document.getElementById('btn_download').addEventListener("click", saveDiv)
 
 
+export {lstMusica}
 /*import { lstUsuarios } from "./assets/js/script.js";
 
 function onChange(event) {

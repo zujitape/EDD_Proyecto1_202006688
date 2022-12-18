@@ -1,6 +1,6 @@
 import Usuario from './Usuario.js';
 import ListaSimple from './ListaSimple.js';
-import { showFriends, showBlocked } from './activeUser.js';
+import { showFriends, showBlocked, showMusic } from './activeUser.js';
 
 var user = new Usuario(2340, "karla", "user", sha256("1"), 234, true);
 var user2 = new Usuario(234, "yohann", "toby", sha256("2"), 923483, false);
@@ -8,6 +8,12 @@ var user3 = new Usuario(234, "loka", "china", sha256("2"), 923483, false);
 var user4 = new Usuario(234, "loka", "zuji", sha256("2"), 923483, true);
 
 var lstUsuarios = new ListaSimple();
+lstUsuarios.agregar(user)
+lstUsuarios.agregar(user2)
+lstUsuarios.agregar(user3)
+lstUsuarios.agregar(user4)
+
+
 
 
 
@@ -18,9 +24,17 @@ document.getElementById("register").addEventListener("click", register);
 document.getElementById("backHome").addEventListener("click", showIndex);
 document.getElementById("backHome2").addEventListener("click", showIndex);
 document.getElementById("backHome3").addEventListener("click", showIndex);
+document.getElementById("backHome4").addEventListener("click", showIndex);
 
 document.getElementById("bloqueados").addEventListener("click", showBlocked);
+document.getElementById("bloqueados1").addEventListener("click", showBlocked);
+document.getElementById("bloqueados2").addEventListener("click", showBlocked);
 document.getElementById("amigos").addEventListener("click", showFriends);
+document.getElementById("amigos1").addEventListener("click", showFriends);
+document.getElementById("amigos2").addEventListener("click", showFriends);
+document.getElementById("musica").addEventListener("click", showMusic);
+document.getElementById("musica1").addEventListener("click", showMusic);
+document.getElementById("musica2").addEventListener("click", showMusic)
 
 var activeUser = null
 
@@ -35,6 +49,7 @@ var adminPage = document.querySelector(".admin")
 var indexPage = document.querySelector(".index")
 var friendsPage = document.querySelector(".friends_user")
 var blockedPage = document.querySelector(".blocked_user")
+var musicPage = document.querySelector(".music_user")
 
 function loginForm(){
     register_form.style.display = "none";
@@ -94,7 +109,7 @@ function login(){
                 activeUser.friends.push(user)
                 activeUser.friends.push(user3)
             }
-            showFriends()
+            showMusic()
             alert("Bienvenido "+ activeUser.valor.username +"!")
             clearLoginForm()
             console.log(activeUser.friends)
@@ -116,6 +131,7 @@ function showAdmin(){
     friendsPage.style.display = "none";
     indexPage.style.display = "none";
     blockedPage.style.display = "none";
+    musicPage.style.display = "none";
 }
 
 
@@ -124,7 +140,9 @@ function showIndex(){
     friendsPage.style.display = "none";
     blockedPage.style.display = "none";
     indexPage.style.display = "block";
+    musicPage.style.display = "none";
 
+    document.getElementById('songs').innerHTML = ''
     document.getElementById('blockUsers').innerHTML = ''
     document.getElementById('addUsers').innerHTML = ''
     document.getElementById('graphRender').innerHTML = ''

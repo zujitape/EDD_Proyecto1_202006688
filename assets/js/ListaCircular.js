@@ -9,38 +9,74 @@ class Nodo{
 class ListaCircular{
     constructor(){
         this.cabeza = null
-        this.cola = null
         this.size
     }
 
-    agregarInicio(valor){
-        var temp = new Nodo(valor)
-        if (this.size == 0){
-            this.cabeza = this.cola =  temp
-        }else{
-            temp.siguiente = this.cabeza
-            this.cabeza.anterior = temp
-            this.cabeza = temp 
+    agregar(valor){
+        if(this.cabeza == null){//si la cabeza es nula, agregamos el nuevo nodo en ella y lo enlazamos
+            this.cabeza = new Nodo(valor)
+            this.cabeza.siguiente = this.cabeza
+            this.cabeza.anterior = this.cabeza
+            this.size++
+        }else{//si la cabeza existe, recorremos la lista e insertamos en la última posición
+            var temp = this.cabeza
+            if(this.size == 1){//Si tiene tamaño 1, el único elemento es la cabeza, asignamos a su siguiente nodo el nuevo nodo y lo enlazamos
+                var newNodo = new Nodo(valor)
+                temp.siguiente = newNodo
+                newNodo.anterior = temp 
+                newNodo.siguiente = this.cabeza
+                this.cabeza.anterior = newNodo
+                this.size++
+            }else{//Si el tamaño es mayor a 1, recorremos hasta el final y agregamos el nuevo nodo
+                var i = 0
+                var actual = this.cabeza
+                while(i < this.size){
+                    actual = actual.siguiente
+                    i++
+                }
+
+                actual = actual.anterior //nos posicionamos en un elemento antes del último
+                var tempo = new Nodo(valor)
+                actual.siguiente = tempo
+                tempo.anterior = actual
+                tempo.siguiente = this.cabeza //enlace último-cabeza
+                this.cabeza.anterior = tempo
+                this.size++
+            }
         }
-        unir()
     }
 
-    agregarFinal(valor){
-        var temp = new Nodo(valor)
-        if(this.size == 0){
-            this.cabeza = this.cola = temp 
-        }else{
-            var aux = this.cola
-            this.cola = aux.siguiente = temp 
-            this.cola.anterior = aux
-        }
-        unir()
-    }
+    generarDot(){
+        var dot = 'digraph Matriz{\n node[fontsize="10pt", margin="0.1,0.1", fontname="IMPACT", shape = box fillcolor="#FFEDBB" color=white style=filled, border = white]';
+        dot += ' fontname="IMPACT" \n subgraph cluster_p{';
+        dot += 'label = "Playlist" fontsize="20pt" bgcolor = white \n';
 
-    unir(){
-        this.cabeza.anterior = this.cola
-        this.cola.siguiente = this.cabeza
-    }
+        var temp = this.cabeza 
 
+        //Para poder graficar
+        var temp = this.cabeza
+        var conexiones ="";
+        var nodos ="";
+        var rank = "";
+        var i= 0;
+
+        while(temp){
+            nodos+= "N" + i + "[label = \"" + temp.valor.username + "\"];\n"
+            rank+= "N" + i
+            if(temp.siguiente != null){
+              var auxi = i+1
+              conexiones += "N" + i +" -> N" + auxi + ";\n"
+              conexiones += "N" + auxi +" -> N" + i + ";\n"
+              rank+= ", "
+            }
     
+            temp = temp.siguiente
+            i++
+          }
+        
+        dot+= nodos+"\n \n"+conexiones+"\n\n"
+        dot+= "{rank = same;" + rank + "}\n}\n}"
+        return dot
+
+    }
 }
