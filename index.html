@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <link rel="icon" href="assets/images/icon.png">
     <title>Muster Cloud</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
         <section id = "index" class="index">  
-            <div class = "color"></div>
-            <div class = "color"></div>
-            <div class = "color"></div>
             <div class="general_container" id = "general">
                 <div class="back_div">
                     <div class="login_back_div">
@@ -178,60 +176,12 @@
                     <div class="song" style="display: inline-block;">
                         <img src="assets/images/bg.png" id="mySong">
                         <div class="song_info" style="display: flex;">  
-                            <button class="addSong">+</button>
-                            <h3>La Curiosidad<br>
+                            <button class="addSong" id="0">+</button>
+                            <h3 class = "songname">El Curiosidad<br>
                             </h3>
                         </div>
-                        <h5 class = "autor">Jay Wheeler</h5>
-                    </div>
-
-                    <div class="song" style="display: inline-block;">
-                        <img src="assets/images/bg.png" id="mySong">
-                        <div class="song_info" style="display: flex;">  
-                            <button class="addSong">+</button>
-                            <h3>La Curiosidad<br>
-                            </h3>
-                        </div>
-                        <h5 class = "autor">Jay Wheeler</h5>
-                    </div>
-
-                    <div class="song" style="display: inline-block;">
-                        <img src="assets/images/bg.png" id="mySong">
-                        <div class="song_info" style="display: flex;">  
-                            <button class="addSong">+</button>
-                            <h3>La Curiosidad<br>
-                            </h3>
-                        </div>
-                        <h5 class = "autor">Jay Wheeler</h5>
-                    </div>
-
-                    <div class="song" style="display: inline-block;">
-                        <img src="assets/images/bg.png" id="mySong">
-                        <div class="song_info" style="display: flex;">  
-                            <button class="addSong">+</button>
-                            <h3>La Curiosidad<br>
-                            </h3>
-                        </div>
-                        <h5 class = "autor">Jay Wheeler</h5>
-                    </div>
-                    <div class="song" style="display: inline-block;">
-                        <img src="assets/images/bg.png" id="mySong">
-                        <div class="song_info" style="display: flex;">  
-                            <button class="addSong">+</button>
-                            <h3>La Curiosidad<br>
-                            </h3>
-                        </div>
-                        <h5 class = "autor">Jay Wheeler</h5>
-                    </div><div class="song" style="display: inline-block;">
-                        <img src="assets/images/bg.png" id="mySong">
-                        <div class="song_info" style="display: flex;">  
-                            <button class="addSong">+</button>
-                            <h3>La Curiosidad<br>
-                            </h3>
-                        </div>
-                        <h5 class = "autor">Jay Wheeler</h5>
-                    </div>
-                    
+                        <h5 class ="autor">Jay Wheeler</h5>
+                    </div>                    
                 </div><br>
                 <div id="publishForm" style="display: inline-block;">
                     <form action="" class="song_form">
@@ -257,7 +207,107 @@
                 </div>
             </div>
         </section>
-
+        <section class = "artist_user">
+            <div class="container" id="artist">
+                <header>
+                    <a href="#" class="logo" id="backHome5"><img src="assets/images/icon.png" class="img">Muster cloud</a>
+                    <ul>
+                        <li><a id="musica3" href="#musica">Música</a></li>
+                        <li><a id="playlist3" href="#playlist">Playlist</a></li>
+                        <li><a id="artista3" href="#artistas">Artistas</a></li>
+                        <li><a id="amigos3" href="#friends_user">Amigos</a></li>
+                        <li><a id="bloqueados3" href="#blocked_user">Bloqueados</a></li>
+                        <li><a id="podcast3" href="#podcast">Podcast</a></li>
+                    </ul>
+                </header>
+                <div id="sorting">
+                    <button id="btn_asc" style="background: transparent; border: none;" ><img src="assets/images/asc.png" style="margin-left: -5px;"></button>
+                    <button id="btn_desc" style="background: transparent; border: none;" ><img src="assets/images/desc.png"></button>
+                </div>
+                
+                <div class="artistas">
+                    <div class="bUsers" id="artist_section" style="display: inline-block;">
+                        <div id="new_artist">
+                            <div id="artist_card">
+                                <div id="each">
+                                    <h3 id = "artist_name">tuvieja</h3>
+                                    <img src="assets/images/bg.png" id="artist_picture">                                
+                                </div>
+                            </div>
+                            <div id ="artist_songs" class = "artist_songs">
+                                <div class="artist_song" style="display: inline-block;">
+                                    <img src="assets/images/bg.png" id="album">
+                                    <div class="song_info" style="display: flex;">  
+                                        <button class="addSong" id="0">+</button>
+                                        <h3 class = "songname">El Curiosidad<br>
+                                        </h3>
+                                    </div>
+                                    <h5 class ="autor_song">Jay Wheeler</h5>
+                            </div>
+                            <div class="artist_song" style="display: inline-block;">
+                                <img src="assets/images/bg.png" id="album">
+                                <div class="song_info" style="display: flex;">  
+                                    <button class="addSong" id="0">+</button>
+                                    <h3 class = "songname">El Curiosidad<br>
+                                    </h3>
+                                </div>
+                                <h5 class ="autor_song">Jay Wheeler</h5>
+                            </div>
+                                <div class="artist_song" style="display: inline-block;">
+                                    <img src="assets/images/bg.png" id="album">
+                                    <div class="song_info" style="display: flex;">  
+                                        <button class="addSong" id="0">+</button>
+                                        <h3 class = "songname">El Curiosidad<br>
+                                        </h3>
+                                    </div>
+                                    <h5 class ="autor_song">Jay Wheeler</h5>
+                                </div>
+                                <div class="artist_song" style="display: inline-block;">
+                                    <img src="assets/images/bg.png" id="album">
+                                    <div class="song_info" style="display: flex;">  
+                                        <button class="addSong" id="0">+</button>
+                                        <h3 class = "songname">El Curiosidad<br>
+                                        </h3>
+                                    </div>
+                                    <h5 class ="autor_song">Jay Wheeler</h5>
+                                </div>
+                                
+                            </div>
+                        </div> 
+                                           
+                    </div><br>
+                    
+                    <div class="bUsers" id="artist_section">
+                    </div><br>
+                </div>
+                <div id="graphContainer3">
+                    
+                </div>
+            </div>
+        </section>
+        <section class = "playlist_user">
+            <div class="container" id="playlist">
+                <header>
+                    <a href="#" class="logo" id="backHome6"><img src="assets/images/icon.png" class="img">Muster cloud</a>
+                    <ul>
+                        <li><a id="musica4" href="#musica">Música</a></li>
+                        <li><a id="playlist4" href="#playlist">Playlist</a></li>
+                        <li><a id="artista4" href="#artistas">Artistas</a></li>
+                        <li><a id="amigos4" href="#friends_user">Amigos</a></li>
+                        <li><a id="bloqueados4" href="#blocked_user">Bloqueados</a></li>
+                        <li><a id="podcast4" href="#podcast">Podcast</a></li>
+                    </ul>
+                </header>
+                <div class="canciones" id="p_songs">
+                    <h2>Playlist</h2>
+                    <div class="bUsers" id="playlistSongs">
+                    </div><br>
+                </div>
+                <div id="graphContainer4">
+                    
+                </div>
+            </div>
+        </section>
         
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>

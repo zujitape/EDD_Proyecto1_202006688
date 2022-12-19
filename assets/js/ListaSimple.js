@@ -1,11 +1,12 @@
 import Pila from './Pila.js';
 import Cola from './Cola.js';
+import ListaCircular from './ListaCircular.js';
 
 class Nodo {
     constructor(valor) {
       this.friends = new Pila()
       this.blocked = new Cola()
-      //playlist = doblementeenlazada
+      this.playlist = new ListaCircular()
       this.valor = valor
       this.siguiente = null
     }

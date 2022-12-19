@@ -10,13 +10,21 @@ import { lstUsuarios, activeUser } from "./script.js";
 import { lstMusica } from "./dataManager.js"; //acá se almacenan los artistas + sus canciones
 import Song from "./Song.js";
 import Artista from "./Artista.js";
+import ListaListas from "./ListaListas.js";
+
+var copiaAsc = new ListaListas()
+var copiaDesc = new ListaListas()
+
+copiaAsc = lstMusica
+copiaDesc = lstMusica
 
 var adminPage = document.querySelector(".admin")
 var indexPage = document.querySelector(".index")
 var friendsPage = document.querySelector(".friends_user")
 var blockedPage = document.querySelector(".blocked_user")
 var musicPage = document.querySelector(".music_user")
-
+var artistPage = document.querySelector(".artist_user")
+var playlistPage = document.querySelector(".playlist_user")
 
 //Users
 var chkUsers = document.getElementsByClassName("checkboxUser");
@@ -26,6 +34,9 @@ document.getElementById("btn_add").addEventListener("click", addFriend);
 document.getElementById("btn_block").addEventListener("click", blockUser);
 document.getElementById("btn_unblock").addEventListener("click", unblockUser);
 document.getElementById("btn_publish").addEventListener("click", addSong);
+document.getElementById("btn_asc").addEventListener("click", ascSort);
+document.getElementById("btn_desc").addEventListener("click", descSort);
+
 
 //Amigos
 try{
@@ -37,6 +48,30 @@ try{
 }catch(error){
     console.log("nohay")
 }
+
+var divSong = document.getElementsByClassName("song")
+var names = document.getElementsByClassName("songname")
+var autors = document.getElementsByClassName("autor")
+var addBtn = document.getElementsByClassName("addSong")
+
+const addSongP = e => {
+    console.log("?")
+    var i = e.target.id
+    var songname = names[i].innerText
+    var songautor = autors[i].innerText
+    var current = lstMusica.getSong(songautor, songname)
+    alert("Canción " + songname + " agregada correctamente a la playlist")
+    activeUser.playlist.insertar(current.valor)
+  }
+
+
+  function addButtons(){
+    for (let button of addBtn) {
+        button.addEventListener("click", addSongP);
+    }
+}
+  
+
 
 //READJUST USERS-------------
 function cargarUsers(){
@@ -65,6 +100,9 @@ function showFriends(){
     indexPage.style.display = "none";
     blockedPage.style.display = "none";
     musicPage.style.display = "none";
+    artistPage.style.display = "none";
+    playlistPage.style.display = "none";
+
     cargarUsers()
     graphviz()
 }
@@ -77,7 +115,9 @@ function showBlocked(){
     indexPage.style.display = "none";
     blockedPage.style.display = "block";
     musicPage.style.display = "none";
-    
+    artistPage.style.display = "none";
+    playlistPage.style.display = "none";
+
     activeUser.blocked.showBlocked()
     graphvizBlocked()
 }
@@ -90,8 +130,69 @@ function showMusic(){
     indexPage.style.display = "none";
     blockedPage.style.display = "none";
     musicPage.style.display = "block";
+    artistPage.style.display = "none";
+    playlistPage.style.display = "none";
 
     lstMusica.showValueDivs()
+    addButtons()
+    graphvizArtistas()
+        
+}
+
+function showArtist(){
+    document.getElementById('artist_section').innerHTML = ''
+
+    adminPage.style.display = "none";
+    friendsPage.style.display = "none";
+    indexPage.style.display = "none";
+    blockedPage.style.display = "none";
+    musicPage.style.display = "none";
+    artistPage.style.display = "block";
+    playlistPage.style.display = "none";
+
+    lstMusica.show_HV_Divs()
+        
+}
+
+function showPlaylist(){
+    document.getElementById('graphContainer4').innerHTML = ''
+
+    adminPage.style.display = "none";
+    friendsPage.style.display = "none";
+    indexPage.style.display = "none";
+    blockedPage.style.display = "none";
+    musicPage.style.display = "none";
+    artistPage.style.display = "none";
+    playlistPage.style.display = "block";
+
+    activeUser.playlist.showDiv()
+    graphvizPlaylist()
+}
+
+
+
+
+function ascSort(){
+    document.getElementById('artist_section').innerHTML = ''
+    var i = 0
+    lstMusica.bubblesort()
+    console.log("Sorteada")
+    console.log(lstMusica)
+    lstMusica.show_HV_Divs(i)
+    graphvizArtistasAsc()
+
+}
+
+function descSort(){
+    document.getElementById('artist_section').innerHTML = ''
+    var i = 0
+    console.log(lstMusica)
+    lstMusica.quicksort(lstMusica.cabeza, lstMusica.cola)
+    console.log("Sorteada")
+    console.log(lstMusica)
+    lstMusica.show_HV_Divs(i)
+    document.getElementById('graphContainer3').innerHTML = ''
+    lstMusica.generarDotCanciones()
 }
 
 
@@ -111,6 +212,31 @@ function graphvizBlocked(){
     var main = document.getElementById('graphContainer2');
     main.innerHTML = image;	
 }
+
+function graphvizArtistas(){
+    var data = lstMusica.generarDotCanciones()
+    console.log(data)
+    var image = Viz(data, "svg");
+    var main = document.getElementById('graphContainer3');
+    main.innerHTML = image;	
+}
+
+function graphvizArtistasAsc(){
+    var data = lstMusica.generarDotCanciones()
+    console.log(data)
+    var image = Viz(data, "svg");
+    var main = document.getElementById('graphContainer3');
+    main.innerHTML = image;	
+}
+
+function graphvizPlaylist(){
+    var data = activeUser.playlist.generarDot()
+    console.log(data)
+    var image = Viz(data, "svg");
+    var main = document.getElementById('graphContainer4');
+    main.innerHTML = image;	
+}
+
 
 
 //USER FUNCTIONS--------------------------------------------------
@@ -162,6 +288,8 @@ function unblockUser(){
     
 }
 
+//other
+
 function addSong(){
     var name = document.querySelector("#txtNombreS").value;
     var duration = document.querySelector('#txtDurationS').value;
@@ -176,9 +304,9 @@ function addSong(){
 
         lstMusica.addHeader(newArtista)
         lstMusica.addValue(activeUser.valor.username, newSong)
-        
+        addButtons()
     }else{
-       console.log("programar   ")
+       console.log("programar")
     }
   
     alert("Canción " + name + " agregada correctamente! c:")
@@ -201,4 +329,4 @@ function clearSongForm(){
     document.querySelector('#txtDurationS').value = "";
     document.querySelector('#txtGender').value = "";
 }
-export {showFriends, showBlocked, showMusic}
+export {showFriends, showBlocked, showMusic, showArtist, showPlaylist}

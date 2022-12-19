@@ -1,6 +1,6 @@
 import Usuario from './Usuario.js';
 import ListaSimple from './ListaSimple.js';
-import { showFriends, showBlocked, showMusic } from './activeUser.js';
+import { showFriends, showBlocked, showMusic, showArtist, showPlaylist } from './activeUser.js';
 
 var user = new Usuario(2340, "karla", "user", sha256("1"), 234, true);
 var user2 = new Usuario(234, "yohann", "toby", sha256("2"), 923483, false);
@@ -25,16 +25,34 @@ document.getElementById("backHome").addEventListener("click", showIndex);
 document.getElementById("backHome2").addEventListener("click", showIndex);
 document.getElementById("backHome3").addEventListener("click", showIndex);
 document.getElementById("backHome4").addEventListener("click", showIndex);
+document.getElementById("backHome5").addEventListener("click", showIndex);
+document.getElementById("backHome6").addEventListener("click", showIndex);
 
 document.getElementById("bloqueados").addEventListener("click", showBlocked);
 document.getElementById("bloqueados1").addEventListener("click", showBlocked);
 document.getElementById("bloqueados2").addEventListener("click", showBlocked);
+document.getElementById("bloqueados3").addEventListener("click", showBlocked);
+document.getElementById("bloqueados4").addEventListener("click", showBlocked);
 document.getElementById("amigos").addEventListener("click", showFriends);
 document.getElementById("amigos1").addEventListener("click", showFriends);
 document.getElementById("amigos2").addEventListener("click", showFriends);
+document.getElementById("amigos3").addEventListener("click", showFriends);
+document.getElementById("amigos4").addEventListener("click", showFriends);
 document.getElementById("musica").addEventListener("click", showMusic);
 document.getElementById("musica1").addEventListener("click", showMusic);
-document.getElementById("musica2").addEventListener("click", showMusic)
+document.getElementById("musica2").addEventListener("click", showMusic);
+document.getElementById("musica3").addEventListener("click", showMusic);
+document.getElementById("musica4").addEventListener("click", showMusic);
+document.getElementById("artista").addEventListener("click", showArtist);
+document.getElementById("artista1").addEventListener("click", showArtist);
+document.getElementById("artista2").addEventListener("click", showArtist);
+document.getElementById("artista3").addEventListener("click", showArtist);
+document.getElementById("artista4").addEventListener("click", showArtist);
+document.getElementById("playlist").addEventListener("click", showPlaylist);
+document.getElementById("playlist1").addEventListener("click", showPlaylist);
+document.getElementById("playlist2").addEventListener("click", showPlaylist);
+document.getElementById("playlist3").addEventListener("click", showPlaylist);
+document.getElementById("playlist4").addEventListener("click", showPlaylist);
 
 var activeUser = null
 
@@ -50,6 +68,8 @@ var indexPage = document.querySelector(".index")
 var friendsPage = document.querySelector(".friends_user")
 var blockedPage = document.querySelector(".blocked_user")
 var musicPage = document.querySelector(".music_user")
+var artistPage = document.querySelector(".artist_user")
+var playlistPage = document.querySelector(".playlist_user")
 
 function loginForm(){
     register_form.style.display = "none";
@@ -132,7 +152,10 @@ function showAdmin(){
     indexPage.style.display = "none";
     blockedPage.style.display = "none";
     musicPage.style.display = "none";
+    artistPage.style.display = "none";
+    playlistPage.style.display = "none";
 }
+
 
 
 function showIndex(){
@@ -141,7 +164,10 @@ function showIndex(){
     blockedPage.style.display = "none";
     indexPage.style.display = "block";
     musicPage.style.display = "none";
+    artistPage.style.display = "none";
+    playlistPage.style.display = "none";
 
+    document.getElementById('artist_section').innerHTML = ''
     document.getElementById('songs').innerHTML = ''
     document.getElementById('blockUsers').innerHTML = ''
     document.getElementById('addUsers').innerHTML = ''

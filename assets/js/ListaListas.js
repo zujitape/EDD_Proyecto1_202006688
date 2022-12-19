@@ -19,21 +19,23 @@ class NodoV{
 export default class ListaListas{
     constructor(){
         this.cabeza = null
+        this.cola = null
         this.size = 0
     }
     
     //insertar artistas
     addHeader(valor){
         var temp = new NodoC(valor);
-        if(this.cabeza == null){
-            this.cabeza = temp 
-            this.size++
-        }else{
-            temp.siguiente = this.cabeza
-            this.cabeza.anterior = temp 
-            this.cabeza = temp 
+        temp.siguiente = this.cabeza
+        if(this.cabeza != null){
+            this.cabeza.anterior = temp
             this.size++
         }
+        if(this.cabeza == null){
+            this.cola = temp 
+            this.size++
+        }
+        this.cabeza = temp 
     }
 
     //insertar canciones
@@ -61,10 +63,8 @@ export default class ListaListas{
                 }else{
                     tempcabeza.abajo = cancion
                 }
-                
-                
             }else{
-               console.log("no agregado artista")
+               console.log("-")
             }
 
             tempcabeza= tempcabeza.siguiente
@@ -74,7 +74,6 @@ export default class ListaListas{
         }
 
     }
-
 
     generarDotArtistas(){
         var dot = 'digraph Matriz{\n node[margin="0.3,0.3", fontname="IMPACT", shape = box fillcolor="#FFEDBB" color=white style=filled, border = white]';
@@ -107,8 +106,8 @@ export default class ListaListas{
         return dot
     }
 
-    /*
-    generarDotCanciones(){
+    /* 
+    generarDotCanciones(){ //vertical
         
         var dot = 'digraph Matriz{\n node[margin="0.3,0.3", fontname="IMPACT", shape = box fillcolor="#FFEDBB" color=white style=filled, border = white]';
         dot += ' fontname="IMPACT"\n subgraph cluster_p{';
@@ -178,8 +177,7 @@ export default class ListaListas{
 
     */
 
-    generarDotCanciones(){
-        
+    generarDotCanciones(){ //horizontal
         var dot = 'digraph Matriz{\n node[fontsize="10pt", margin="0.1,0.1", fontname="IMPACT", shape = box fillcolor="#FFEDBB" color=white style=filled, border = white]';
         dot += ' fontname="IMPACT" \n subgraph cluster_p{';
         dot += 'label = "Artistas" fontsize="20pt" bgcolor = white \n';
@@ -207,8 +205,6 @@ export default class ListaListas{
                 conexiones+= "N" + i + "-> " + "N" + c + "\n"
                 conexiones+= "N" + c + "-> " + "N" + i + "\n"
             }
-
-
             
             while(tempC){
                 nodosv += "N" + c + "[label = \"" + tempC.valor.name + "\nDuración: " + tempC.valor.duration + "\"];\n"
@@ -249,35 +245,136 @@ export default class ListaListas{
         return dot
 
     }
-    
-    showValues(value){
-        var temp = this.cabeza
-        while (temp != null){
-            if(temp.value == value){
-                console.log("*********** Cabecera "+value+" *********")        
-                var tempcanciones = temp.abajo
-                while(tempcanciones != null){
-                    console.log(tempcanciones.value)
-                    tempcanciones = tempcanciones.siguiente
-                }
-                return
-            }
-            temp = temp.siguiente
-        }
-        if(temp == null){
-            console.log("No se pudo encontrar el header "+value)
-        }
-    }
 
     showValueDivs(){
         var temp = this.cabeza
+        var i = 0
         while (temp){
             var tempC = temp.abajo
             while(tempC){
-                document.getElementById("songs").innerHTML += '<div class="song" style="display: inline-block;">\n<img src="assets/images/bg.png" id="mySong">\n<div class="song_info" style="display: flex;">\n<button class="addSong">+</button>\n <h3>' + tempC.valor.name  + '</h3> </div>\n<h5 class = "autor">' + tempC.valor.artist + '</h5></div>'
+                document.getElementById("songs").innerHTML += '<div class="song" style="display: inline-block;">\n<img src="assets/images/bg.png" id="mySong">\n<div class="song_info" style="display: flex;">\n<button class="addSong" id="'+ i+'">+</button>\n <h3 class = "songname">' + tempC.valor.name  + '</h3> </div>\n<h5 class = "autor">' + tempC.valor.artist + '</h5></div>'
                 tempC = tempC.siguiente 
+                i++
             }
             temp = temp.siguiente
+        }
+    }
+
+    show_HV_Divs(i){
+        var temp = this.cabeza
+        while (temp){
+            document.getElementById("artist_section").innerHTML += '<div id="new_artist"> <div id="artist_card"><div id="each"><h3 id = "artist_name">' +temp.valor.name + '</h3><img src="assets/images/bg.png" id="artist_picture"></div></div><div id ="artist_songs'+i+'" class="artist_songs">'
+        
+            var tempC = temp.abajo
+            var coso = "artist_songs" + i
+
+            while(tempC){
+                console.log("cancion de" + tempC.valor.artist)
+                document.getElementById(coso).innerHTML += '<div class="artist_song" style="display: inline-block;"><img src="assets/images/bg.png" id="album"><div class="song_info" style="display: flex;">  <button class="nothing" id="btn">+</button><h3 class = "songname">'+ tempC.valor.name + '<br> </h3></div><h5 class ="autor_song">' + tempC.valor.duration+'</h5></div>'      
+                tempC = tempC.siguiente  
+            }
+
+            document.getElementById(coso).innerHTML+= "</div>"  
+            document.getElementById("new_artist").innerHTML+= "</div>"
+            temp = temp.siguiente
+            i++  
+            
+        }
+        document.getElementById("artist_section").innerHTML += "</div><br>"
+        
+    }
+
+    getSong(autor, song){
+        var temp = this.cabeza
+        while(temp){
+            var tempC = temp.abajo
+            while(tempC){
+                if (temp.valor.name == autor && tempC.valor.name == song){
+                    
+                    return tempC
+                }
+                tempC = tempC.siguiente
+            }
+            temp = temp.siguiente
+        }
+    }
+
+    //ascendente
+    bubblesort(){
+        for(var i = 0; i < (this.size + 1); i++){
+            var actual = this.cabeza
+            for(var j = 0; j < this.size; j++){
+                if(actual.siguiente && actual.valor.name > actual.siguiente.valor.name){
+                    var nodoi = actual.valor
+                    var nodoj = actual.siguiente.valor
+                    actual.valor = nodoj
+                    actual.siguiente.valor = nodoi
+                }
+                actual = actual.siguiente
+            }
+        }
+    }
+
+    //descentente
+    quicksort(left, right){
+        console.log(right)
+        if(left == null){
+            return
+        }
+
+        let pivot = new NodoC(left.valor)
+        let i = -1
+        let j = -1
+        let nodoi = left
+        let nodoj = right
+
+        let actual = this.cabeza
+        while(actual){
+            i+=1
+            if(actual == left){
+                break;
+            }
+            actual = actual.siguiente
+        }
+
+        actual = this.cabeza
+        while(actual){
+            j+=1
+            if(actual == right){
+                break;
+            }
+            actual = actual.siguiente
+        }
+
+        let izq = i
+        let der = j
+
+        while(i<j){
+            while(nodoi.valor.name.localeCompare(pivot.valor.name)== 1 || nodoi.valor.name.localeCompare(pivot.valor.name)== 0 && i<j){
+                //console.log('comparando ', nodei.value, ' con ', pivot.value, ' valor: ', nodei.value.localeCompare(pivot.value))
+                i = i + 1;
+                nodoi = nodoi.siguiente;
+            }
+
+            while(nodoj.valor.name.localeCompare(pivot.valor.name)==-1){
+                j = j-1;
+                nodoj = nodoj.siguiente;
+            }
+            if(i<j){
+                let aux = new NodoC(nodoi.valor)
+                nodoi.valor = nodoj.valor
+                nodoj.valor = aux.valor
+            }
+        }
+
+        left.valor = nodoj.valor
+        nodoj.valor = pivot.valor
+
+        if(izq < j-1){
+            this.quicksort(left, nodoj.anterior)
+        }
+        if(j+1 < der){
+            this.quicksort(nodoj.siguiente, right)
         }
     }
     
