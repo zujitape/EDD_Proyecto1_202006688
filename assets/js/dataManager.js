@@ -1,5 +1,6 @@
 import {lstUsuarios} from "./script.js";
 import ListaListas from './ListaListas.js';
+import Arbol from "./Arbol.js";
 import Usuario from './Usuario.js';
 import Artista from "./Artista.js";
 import Song from "./Song.js";
@@ -8,6 +9,7 @@ import Podcast from "./Podcast.js"
 
 var sample = 'digraph G {subgraph cluster_0 {  style=filled;  color=lightgrey;  node [style=filled,color=white];  a0 -> a1 -> a2 -> a3;  label = "process #1";}subgraph cluster_1 {  node [style=filled];  b0 -> b1 -> b2 -> b3;label = "process #2";  color=blue}start -> a0;start -> b0;a1 -> b3;b2 -> a3;a3 -> a0;a3 -> end;b3 -> end;start [shape=Mdiamond];end [shape=Msquare];}';
 var lstMusica = new ListaListas();
+var abbPodcast = new Arbol();
 
 function onChange(event) {
     try{
@@ -28,11 +30,10 @@ function onChange(event) {
                 break
             case 'programmedFile':
                 reader.onload = getProgrammed;
-                console.log("tuvieja4")
                 break
             case 'podcastFile':
                 reader.onload = getPodcasts;
-                console.log("tuvieja5")
+                console.log(abbPodcast)
                 break
         }
         reader.readAsText(event.target.files[0]);
@@ -71,10 +72,11 @@ function getSongs(event){
 }
 
 function getPodcasts(event){
-    var obj = JSON.parse(event.target.result);
-    var size = Object.keys(obj).length
+    var data = JSON.parse(event.target.result);
+    var size = Object.keys(data).length
     for(var i = 0; i <size;i++){
         var newPodcast = new Podcast(data[i].name, data[i].topic, data[i].guests, data[i].duration)
+        abbPodcast.agregar(newPodcast)
 
     }
 }

@@ -24,7 +24,7 @@ body{
     padding: 20px;
     margin: auto;
     margin-top: 100px;
-    display: none;
+    
 }
 
 .admin{
@@ -77,6 +77,7 @@ body{
     width: 100%;
     margin-top: 55px;
     margin-left: 80px;
+    display: none;
 }
 
 #artist{
